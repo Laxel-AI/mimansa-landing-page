@@ -17,7 +17,7 @@ export function Sidebar() {
   const frameRateRef = useRef(0);
 
   // Sidebar width
-  const sidebarWidth = 300;
+  const sidebarWidth = 250;
 
   // Set up direct DOM manipulation for maximum performance
   useEffect(() => {
