@@ -4,10 +4,13 @@ import React, { useState, useEffect, CSSProperties } from "react";
 
 const ScrollEffect = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [viewportHeight, setViewportHeight] = useState(window.innerHeight);
+  const [viewportHeight, setViewportHeight] = useState(0); // Initialize with 0 instead of window.innerHeight
 
   // Update scroll position when user scrolls and track viewport size
   useEffect(() => {
+    // Set mounted state and initialize viewport height
+    setViewportHeight(window.innerHeight);
+
     const handleScroll = () => {
       setScrollPosition(window.scrollY);
     };

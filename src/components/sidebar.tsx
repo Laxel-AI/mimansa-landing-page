@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import SidebarNavigation from "./sidenav";
 
 export function Sidebar() {
   // Use refs instead of state for maximum performance - avoid React's rendering cycle
   const scrollRef = useRef(0);
   const effectiveScrollRef = useRef(0);
-  const viewportHeightRef = useRef(window.innerHeight);
+  const viewportHeightRef = useRef(0); // Initialize with 0 instead of window.innerHeight
   const rafRef = useRef<number | null>(null);
   const blueBoxRef = useRef<HTMLDivElement | null>(null);
   const yellowBoxRef = useRef<HTMLDivElement | null>(null);
@@ -16,11 +16,20 @@ export function Sidebar() {
   const lastTimeRef = useRef(0);
   const frameRateRef = useRef(0);
 
+  // Track if component is mounted to safely use browser APIs
+  const [isMounted, setIsMounted] = useState(false);
+
   // Sidebar width
   const sidebarWidth = 250;
 
   // Set up direct DOM manipulation for maximum performance
   useEffect(() => {
+    // Set mounted state
+    setIsMounted(true);
+
+    // Initialize viewport height now that we're in the browser
+    viewportHeightRef.current = window.innerHeight;
+
     // Add extra space to allow scrolling
     document.body.style.height = "3000px";
 
@@ -105,7 +114,11 @@ export function Sidebar() {
         cancelAnimationFrame(rafRef.current);
       }
     };
-  }, []);
+  }, []); // Empty dependency array means this effect runs once on mount
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <div className="container">
