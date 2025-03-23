@@ -93,7 +93,7 @@ const SidebarNavigation = ({}) => {
                 onClick={() => handleClick(item.id)}
                 onMouseEnter={() => handleMouseEnter(item.id)}
                 onMouseLeave={handleMouseLeave}
-                className="flex items-center justify-between w-full group mb-2"
+                className="flex items-center justify-center w-full group mb-2"
               >
                 <span
                   className="text-sm font-medium tracking-wide transition-all duration-200"
