@@ -15,16 +15,15 @@ export function Sidebar() {
   const viewportHeightRef = useRef(
     typeof window !== "undefined" ? window.innerHeight : 0
   );
-  const rafRef = useRef(null);
-  const blueBoxRef = useRef(null);
-  const yellowBoxRef = useRef(null);
-  const redTextRef = useRef(null);
-  const greenTextRef = useRef(null);
+  const rafRef = useRef<number | null>(null);
+  const blueBoxRef = useRef<HTMLDivElement | null>(null);
+  const yellowBoxRef = useRef<HTMLDivElement | null>(null);
+  const redTextRef = useRef<HTMLDivElement | null>(null);
+  const greenTextRef = useRef<HTMLDivElement | null>(null);
   const lastTimeRef = useRef(0);
   const frameRateRef = useRef(0);
 
   // Track if component is mounted to safely use browser APIs
-  const [isMounted, setIsMounted] = useState(false);
 
   // Sidebar width
   const sidebarWidth = 250;
@@ -56,7 +55,7 @@ export function Sidebar() {
       const transformBase8 = "px - 100vh))";
 
       // High-performance scroll handler - bypasses React rendering entirely
-      const updateElementPositions = (timestamp) => {
+      const updateElementPositions = (timestamp: number) => {
         // Calculate FPS for performance monitoring
         if (lastTimeRef.current) {
           frameRateRef.current = 1000 / (timestamp - lastTimeRef.current);
