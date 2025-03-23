@@ -87,7 +87,9 @@ export function ResourcesSection() {
             {resourceCategories.map((category, index) => (
               <div
                 key={category.id}
-                ref={(el) => (resourceRefs.current[index] = el)}
+                ref={(el) => {
+                  resourceRefs.current[index] = el;
+                }}
                 className={cn(
                   "bg-white p-6 border border-gray-200 shadow-sm hover:shadow-md hover:translate-y-[-3px] transition-all duration-300",
                   inView

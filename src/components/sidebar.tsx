@@ -23,6 +23,9 @@ export function Sidebar() {
   const lastTimeRef = useRef(0);
   const frameRateRef = useRef(0);
 
+  // Track if component is mounted to safely use browser APIs
+  const [isMounted, setIsMounted] = useState(false);
+
   // Sidebar width
   const sidebarWidth = 250;
 

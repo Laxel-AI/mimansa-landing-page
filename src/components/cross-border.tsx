@@ -52,6 +52,8 @@ export function CrossBorderCapabilities() {
   return (
     <section
       ref={(el) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-expect-error
         containerRef.current = el;
         inViewRef(el);
       }}

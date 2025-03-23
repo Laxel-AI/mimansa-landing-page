@@ -14,8 +14,8 @@ import {
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [language, setLanguage] = useState("English");
-  const [region, setRegion] = useState("INDIA");
+  const [language] = useState("English");
+  const [region] = useState("INDIA");
   const [isScrolled, setIsScrolled] = useState(false);
 
   // Add scroll effect for navbar

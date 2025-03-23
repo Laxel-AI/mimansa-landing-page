@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
@@ -132,7 +132,9 @@ export function PracticeAreas() {
           {practiceAreas.map((area, index) => (
             <div
               key={area.id}
-              ref={(el) => (cardsRef.current[index] = el)}
+              ref={(el) => {
+                cardsRef.current[index] = el;
+              }}
               className={cn(
                 "practice-card bg-white flex flex-col h-[26rem] border border-gray-200 shadow-sm hover:shadow-md hover:translate-y-[-5px] transition-all duration-300 group",
                 inView
