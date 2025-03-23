@@ -5,7 +5,7 @@ import { useEffect } from "react";
 export function SmoothScroll() {
   useEffect(() => {
     // Small offset to prevent layout jumps with fixed elements
-    const scrollOffset = 0.05;
+    // const scrollOffset = 0.05;
 
     // Track scroll progress
     let current = 0;

@@ -124,7 +124,7 @@ export function RecentNews() {
             className="flex transition-transform duration-500 ease-in-out"
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
           >
-            {newsItems.map((item, index) => (
+            {newsItems.map((item) => (
               <div key={item.id} className="w-full flex-shrink-0">
                 <div
                   className={cn(

@@ -8,11 +8,11 @@ export function Sidebar() {
   const scrollRef = useRef(0);
   const effectiveScrollRef = useRef(0);
   const viewportHeightRef = useRef(window.innerHeight);
-  const rafRef = useRef(null);
-  const blueBoxRef = useRef(null);
-  const yellowBoxRef = useRef(null);
-  const redTextRef = useRef(null);
-  const greenTextRef = useRef(null);
+  const rafRef = useRef<number | null>(null);
+  const blueBoxRef = useRef<HTMLDivElement | null>(null);
+  const yellowBoxRef = useRef<HTMLDivElement | null>(null);
+  const redTextRef = useRef<HTMLDivElement | null>(null);
+  const greenTextRef = useRef<HTMLDivElement | null>(null);
   const lastTimeRef = useRef(0);
   const frameRateRef = useRef(0);
 
@@ -34,8 +34,7 @@ export function Sidebar() {
     const transformBase7 = "translateY(calc(";
     const transformBase8 = "px - 100vh))";
 
-    // High-performance scroll handler - bypasses React rendering entirely
-    const updateElementPositions = (timestamp) => {
+    const updateElementPositions = (timestamp: number): void => {
       // Calculate FPS for performance monitoring
       if (lastTimeRef.current) {
         frameRateRef.current = 1000 / (timestamp - lastTimeRef.current);
@@ -46,17 +45,17 @@ export function Sidebar() {
       scrollRef.current = window.scrollY;
 
       // Calculate the max scroll value where yellow completely covers the screen
-      const maxScrollEffect = viewportHeightRef.current;
+      const maxScrollEffect: number = viewportHeightRef.current;
 
       // Direct calculation without setState - use ~~ for faster integer conversion
       effectiveScrollRef.current = Math.min(scrollRef.current, maxScrollEffect);
 
       // Cache DOM references outside the condition checks for better performance
-      const blueBox = blueBoxRef.current;
-      const yellowBox = yellowBoxRef.current;
-      const redText = redTextRef.current;
-      const greenText = greenTextRef.current;
-      const effectiveScroll = effectiveScrollRef.current;
+      const blueBox: HTMLDivElement | null = blueBoxRef.current;
+      const yellowBox: HTMLDivElement | null = yellowBoxRef.current;
+      const redText: HTMLDivElement | null = redTextRef.current;
+      const greenText: HTMLDivElement | null = greenTextRef.current;
+      const effectiveScroll: number = effectiveScrollRef.current;
 
       // Use style.transform with concatenated strings instead of template literals for better performance
       // Direct DOM manipulation for maximum performance

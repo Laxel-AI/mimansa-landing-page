@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, CSSProperties } from "react";
 
 const ScrollEffect = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -40,7 +40,7 @@ const ScrollEffect = () => {
   const effectiveScroll = Math.min(scrollPosition * 0.5, maxScrollEffect);
 
   // Calculate the positions based on scroll
-  const blueBoxStyle = {
+  const blueBoxStyle: CSSProperties = {
     position: "fixed",
     top: `calc(50% - 50vh - ${effectiveScroll}px)`, // Move up as scroll increases
     left: "0",
@@ -56,7 +56,7 @@ const ScrollEffect = () => {
   };
 
   // Yellow box positioned directly below blue box
-  const yellowBoxStyle = {
+  const yellowBoxStyle: CSSProperties = {
     position: "fixed",
     top: `calc(50% - 50vh - ${effectiveScroll}px + 100vh)`, // Position below blue box
     left: "0",
@@ -72,7 +72,7 @@ const ScrollEffect = () => {
   };
 
   // The text styles
-  const textStyle = {
+  const textStyle: CSSProperties = {
     position: "absolute",
     fontSize: "24px",
     fontWeight: "bold",
