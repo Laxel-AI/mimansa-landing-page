@@ -3,11 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import SidebarNavigation from "./sidenav";
 import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export function Sidebar() {
   // Add state to track screen size and mobile menu visibility
   const [isMobile, setIsMobile] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const isRootPage = pathname === "/";
 
   // Use refs instead of state for maximum performance - avoid React's rendering cycle
   const scrollRef = useRef(0);
@@ -24,7 +27,6 @@ export function Sidebar() {
   const frameRateRef = useRef(0);
 
   // Track if component is mounted to safely use browser APIs
-  const [isMounted, setIsMounted] = useState(false);
 
   // Sidebar width
   const sidebarWidth = 250;
@@ -43,7 +45,7 @@ export function Sidebar() {
     // Only add these effects if not on mobile
     if (!isMobile) {
       // Add extra space to allow scrolling
-      document.body.style.height = "3000px";
+      document.body.style.maxHeight = "3000px";
 
       // Pre-calculated transform strings for better performance
       const transformBase1 = "translateY(calc(-50vh - ";
@@ -208,7 +210,7 @@ export function Sidebar() {
             fontWeight: "bold",
             textAlign: "center",
             width: `${sidebarWidth * 0.8}px`,
-            color: "white",
+            color: `${isRootPage ? "white" : "black"}`,
             willChange: "transform",
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",

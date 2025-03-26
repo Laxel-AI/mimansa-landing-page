@@ -1,168 +1,62 @@
-import React, { useState } from "react";
-import { ChevronRight, ExternalLink } from "lucide-react";
+import React from "react";
 
 // Main Navigation Component
-const SidebarNavigation = ({}) => {
-  const [activeItem, setActiveItem] = useState<string | null>(null);
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-
-  // Navigation items with subitems
+const SidebarNavigation = () => {
+  // Navigation items
   const navItems = [
     {
       id: "people",
       label: "PEOPLE",
       link: "/people",
-      subItems: [
-        { label: "Leadership", link: "/people/leadership" },
-        { label: "Consultants", link: "/people/consultants" },
-        { label: "Join Our Team", link: "/people/careers", external: true },
-      ],
     },
     {
       id: "services",
       label: "SERVICES AND INDUSTRIES",
       link: "/services",
-      subItems: [
-        { label: "Strategy", link: "/services/strategy" },
-        { label: "Technology", link: "/services/technology" },
-        { label: "Finance", link: "/services/finance" },
-        { label: "Healthcare", link: "/services/healthcare" },
-      ],
     },
     {
       id: "insights",
       label: "INSIGHTS",
       link: "/insights",
-      subItems: [
-        { label: "Research", link: "/insights/research" },
-        { label: "Blog", link: "/insights/blog" },
-        { label: "Case Studies", link: "/insights/case-studies" },
-      ],
     },
     {
       id: "story",
       label: "OUR STORY",
       link: "/our-story",
-      subItems: [
-        { label: "History", link: "/our-story/history" },
-        { label: "Values", link: "/our-story/values" },
-        { label: "Contact", link: "/our-story/contact" },
-      ],
     },
   ];
 
-  // Handle mouse events
-  const handleMouseEnter = (itemId: string) => {
-    setHoveredItem(itemId);
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredItem(null);
-  };
-
-  const handleClick = (itemId: string) => {
-    setActiveItem(activeItem === itemId ? null : itemId);
-  };
-
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col justify-center items-center w-full">
       {/* Logo */}
-      <div className="mb-12">
+      <div className="mb-12 mt-12">
         <h1
-          className="font-serif text-3xl font-bold tracking-tight"
+          className="font-serif text-4xl font-bold tracking-tight"
           style={{
             fontFamily: '"Playfair Display", serif',
           }}
         >
-          MIMANSA
+          <a href="/">MIMANSA</a>
         </h1>
       </div>
 
       {/* Navigation */}
-      <nav className="flex flex-col space-y-8 w-full">
+      <nav className="flex flex-col items-center space-y-16 w-full">
         {navItems.map((item) => (
           <div key={item.id} className="flex flex-col">
-            <div className="relative">
-              {/* Active indicator */}
-              {(activeItem === item.id || hoveredItem === item.id) && (
-                <div className="absolute -left-6 top-1/2 -translate-y-1/2 w-1 h-5 transition-all duration-300 ease-in-out" />
-              )}
-
-              {/* Main menu item */}
-              <button
-                onClick={() => handleClick(item.id)}
-                onMouseEnter={() => handleMouseEnter(item.id)}
-                onMouseLeave={handleMouseLeave}
-                className="flex items-center justify-center w-full group mb-2"
-              >
-                <span
-                  className="text-sm font-medium tracking-wide transition-all duration-200"
-                  style={{
-                    opacity:
-                      activeItem === item.id || hoveredItem === item.id
-                        ? 1
-                        : 0.8,
-                    letterSpacing: "0.1em",
-                  }}
-                >
-                  {item.label}
-                </span>
-                <ChevronRight
-                  size={14}
-                  style={{
-                    opacity: 0.6,
-                    transform:
-                      activeItem === item.id ? "rotate(90deg)" : "rotate(0deg)",
-                    transition: "all 0.2s ease",
-                  }}
-                />
-              </button>
-            </div>
-
-            {/* Separator line */}
-            <div
-              className="w-full h-px mt-1 mb-2 transition-all duration-300 ease-in-out"
-              style={{
-                opacity: activeItem === item.id ? 0.2 : 0,
-                transform: `scaleX(${activeItem === item.id ? 1 : 0})`,
-                transformOrigin: "left",
-              }}
-            />
-
-            {/* Dropdown subitems */}
-            <div
-              className="pl-4 overflow-hidden transition-all duration-300 ease-in-out"
-              style={{
-                maxHeight:
-                  activeItem === item.id
-                    ? `${item.subItems.length * 2.5}rem`
-                    : "0",
-                opacity: activeItem === item.id ? 1 : 0,
-              }}
+            <a
+              href={item.link}
+              className="flex items-center group transition-all duration-200 hover:translate-x-1"
             >
-              {item.subItems.map((subItem, idx) => (
-                <a
-                  key={idx}
-                  href={subItem.link}
-                  target={subItem.external ? "_blank" : "_self"}
-                  rel={subItem.external ? "noopener noreferrer" : ""}
-                  className="flex items-center py-2 group"
-                >
-                  <span
-                    className="text-xs tracking-wide transition-all duration-200 group-hover:translate-x-1"
-                    style={{
-                      opacity: 0.7,
-                      fontWeight: 400,
-                    }}
-                  >
-                    {subItem.label}
-                  </span>
-                  {subItem.external && (
-                    <ExternalLink size={10} className="ml-1" />
-                  )}
-                </a>
-              ))}
-            </div>
+              <span
+                className="text-lg font-medium tracking-wide"
+                style={{
+                  letterSpacing: "0.1em",
+                }}
+              >
+                {item.label}
+              </span>
+            </a>
           </div>
         ))}
       </nav>

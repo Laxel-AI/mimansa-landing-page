@@ -2,27 +2,46 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Search, Globe, Menu, X } from "lucide-react";
+import { Search, Globe, Menu, X, LogIn } from "lucide-react";
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+
+// Navigation items JSON
+const navigationItems = {
+  main: [
+    {
+      label: "NEWS",
+      link: "/news",
+      type: "link",
+    },
+    {
+      label: "BLOGS",
+      link: "/blogs",
+      type: "link",
+    },
+    {
+      label: "CONTACT",
+      link: "/contact",
+      type: "link",
+    },
+  ],
+  languages: ["English", "Hindi"],
+  regions: ["INDIA", "SINGAPORE", "UAE"],
+};
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [language] = useState("English");
-  const [region] = useState("INDIA");
+  const [language, setLanguage] = useState(navigationItems.languages[0]);
+  const region = navigationItems.regions[0];
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Add scroll effect for navbar
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition > 20);
+      setIsScrolled(window.scrollY > 20);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -38,6 +57,7 @@ export function Navbar() {
       } border-b border-gray-200`}
     >
       <div className="flex items-center justify-between px-4 md:px-8 py-3">
+        {/* Left section */}
         <div className="flex items-center space-x-6">
           <button className="text-gray-600 flex items-center space-x-1 hover:text-gray-900 transition-colors">
             <Globe className="h-4 w-4" />
@@ -50,7 +70,7 @@ export function Navbar() {
             <span className="hidden md:inline-block font-medium">{region}</span>
             <span className="text-gray-400">|</span>
             <div className="relative group">
-              <button className="flex items-center space-x-1 hover:text-gray-900 transition-colors">
+              <button className="flex items-center space-x-2 hover:text-gray-900 transition-colors">
                 <span>{language}</span>
                 <svg
                   className="h-3 w-3 opacity-50"
@@ -67,87 +87,52 @@ export function Navbar() {
                 </svg>
               </button>
               <div className="absolute hidden group-hover:block bg-white shadow-md p-2 min-w-32 z-50">
-                <div className="py-1 px-2 hover:bg-gray-100 cursor-pointer">
-                  Hindi
-                </div>
-                <div className="py-1 px-2 hover:bg-gray-100 cursor-pointer">
-                  English
-                </div>
+                {navigationItems.languages.map((lang) => (
+                  <div
+                    key={lang}
+                    className="py-1 px-2 hover:bg-gray-100 cursor-pointer"
+                    onClick={() => setLanguage(lang)}
+                  >
+                    {lang}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
 
-        <div className="hidden md:flex items-center space-x-6">
+        {/* Center section - Main navigation */}
+        <div className="hidden md:flex items-center">
           <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <Link href="/news" legacyBehavior passHref>
-                  <NavigationMenuLink className="text-sm font-medium text-gray-700 hover:text-gray-900">
-                    NEWS
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-sm font-medium text-gray-700 hover:text-gray-900">
-                  COMMUNITY
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid gap-3 p-4 w-[200px]">
-                    <li>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          href="/inclusion"
-                          className="block p-2 hover:bg-gray-100"
-                        >
-                          Inclusion
-                        </Link>
-                      </NavigationMenuLink>
-                    </li>
-                    <li>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          href="/pro-bono"
-                          className="block p-2 hover:bg-gray-100"
-                        >
-                          Pro Bono
-                        </Link>
-                      </NavigationMenuLink>
-                    </li>
-                    <li>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          href="/social-responsibility"
-                          className="block p-2 hover:bg-gray-100"
-                        >
-                          Social Responsibility
-                        </Link>
-                      </NavigationMenuLink>
-                    </li>
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link href="/alumni" legacyBehavior passHref>
-                  <NavigationMenuLink className="text-sm font-medium text-gray-700 hover:text-gray-900">
-                    ALUMNI
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link href="/careers" legacyBehavior passHref>
-                  <NavigationMenuLink className="text-sm font-medium text-gray-700 hover:text-gray-900">
-                    CAREERS
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
+            <NavigationMenuList className="space-x-8">
+              {navigationItems.main.map((item) => (
+                <NavigationMenuItem key={item.label}>
+                  <Link href={item.link!} legacyBehavior passHref>
+                    <NavigationMenuLink className="text-sm font-medium text-gray-700 hover:text-gray-900">
+                      {item.label}
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+              ))}
             </NavigationMenuList>
           </NavigationMenu>
+        </div>
+
+        {/* Right section */}
+        <div className="hidden md:flex items-center space-x-6">
           <button className="text-gray-700">
             <Search className="h-5 w-5" />
           </button>
+          <Link
+            href="/login"
+            className="flex items-center space-x-1 text-sm font-medium text-gray-700 hover:text-gray-900"
+          >
+            <LogIn className="h-4 w-4" />
+            <span>Login</span>
+          </Link>
         </div>
 
+        {/* Mobile menu button */}
         <button
           className="md:hidden text-gray-700"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -164,39 +149,20 @@ export function Navbar() {
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 bg-white pt-16">
           <div className="container px-4 py-6 space-y-6">
+            {navigationItems.main.map((item) => (
+              <Link
+                key={item.label}
+                href={item.link!}
+                className="block py-2 text-lg font-medium border-b border-gray-200"
+              >
+                {item.label}
+              </Link>
+            ))}
             <Link
-              href="/news"
+              href="/login"
               className="block py-2 text-lg font-medium border-b border-gray-200"
             >
-              NEWS
-            </Link>
-            <div>
-              <div className="block py-2 text-lg font-medium border-b border-gray-200">
-                COMMUNITY
-              </div>
-              <div className="pl-4 py-2 space-y-2">
-                <Link href="/inclusion" className="block py-1">
-                  Inclusion
-                </Link>
-                <Link href="/pro-bono" className="block py-1">
-                  Pro Bono
-                </Link>
-                <Link href="/social-responsibility" className="block py-1">
-                  Social Responsibility
-                </Link>
-              </div>
-            </div>
-            <Link
-              href="/alumni"
-              className="block py-2 text-lg font-medium border-b border-gray-200"
-            >
-              ALUMNI
-            </Link>
-            <Link
-              href="/careers"
-              className="block py-2 text-lg font-medium border-b border-gray-200"
-            >
-              CAREERS
+              LOGIN
             </Link>
           </div>
         </div>

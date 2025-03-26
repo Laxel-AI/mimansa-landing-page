@@ -1,41 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 
 export function HeroBanner() {
   const textRef = useRef<HTMLDivElement>(null);
   const announcementRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [screenSize, setScreenSize] = useState({
-    isMobile: false,
-    isTablet: false,
-    isDesktop: false,
-  });
-
-  // Check screen size
-  useEffect(() => {
-    const checkScreenSize = () => {
-      const width = window.innerWidth;
-      setScreenSize({
-        isMobile: width < 768,
-        isTablet: width >= 768 && width < 1024,
-        isDesktop: width >= 1024,
-      });
-    };
-
-    // Run on mount
-    checkScreenSize();
-
-    // Add resize listener
-    window.addEventListener("resize", checkScreenSize);
-    return () => window.removeEventListener("resize", checkScreenSize);
-  }, []);
 
   // Subtle parallax effect on scroll
   useEffect(() => {
     const handleScroll = () => {
-      if (!containerRef.current || screenSize.isMobile) return; // Skip effect on mobile
+      if (!containerRef.current) return;
 
       const scrollPosition = window.scrollY;
       const containerRect = containerRef.current.getBoundingClientRect();
@@ -66,16 +42,14 @@ export function HeroBanner() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [screenSize]);
+  }, []);
 
   return (
     <div
       ref={containerRef}
-      className={`hero-banner relative h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-screen lg:max-h-[800px] overflow-hidden ${
-        screenSize.isDesktop ? "w-screen lg:-ml-64" : "w-full"
-      }`}
+      className="hero-banner relative h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-screen lg:max-h-[800px] overflow-hidden w-full lg:w-screen lg:-ml-64"
     >
-      {/* Hero Image - Full Width (extends left to cover sidebar area on desktop) */}
+      {/* Hero Image */}
       <div className="absolute inset-0 z-1">
         <Image
           src="/blind_women.png"
@@ -88,12 +62,8 @@ export function HeroBanner() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
       </div>
 
-      {/* Hero Content positioned correctly for all screen sizes */}
-      <div
-        className={`absolute inset-0 z-2 flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-16 ${
-          screenSize.isDesktop ? "lg:ml-64" : screenSize.isMobile ? "pt-20" : ""
-        }`}
-      >
+      {/* Hero Content */}
+      <div className="absolute inset-0 z-2 flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-16 lg:ml-64 pt-20 lg:pt-0">
         <div
           ref={textRef}
           className="max-w-3xl text-white transition-all duration-1000 ease-out"
