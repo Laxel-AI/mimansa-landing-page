@@ -20,7 +20,7 @@ const navigationItems = {
     },
     {
       label: "BLOGS",
-      link: "/blogs",
+      link: "/blog",
       type: "link",
     },
     {
@@ -59,13 +59,6 @@ export function Navbar() {
       <div className="flex items-center justify-between px-4 md:px-8 py-3">
         {/* Left section */}
         <div className="flex items-center space-x-6">
-          <button className="text-gray-600 flex items-center space-x-1 hover:text-gray-900 transition-colors">
-            <Globe className="h-4 w-4" />
-            <span className="text-xs hidden md:inline-block tracking-wider">
-              LOCATIONS
-            </span>
-          </button>
-
           <div className="flex items-center space-x-2 text-xs">
             <span className="hidden md:inline-block font-medium">{region}</span>
             <span className="text-gray-400">|</span>
@@ -124,7 +117,8 @@ export function Navbar() {
             <Search className="h-5 w-5" />
           </button>
           <Link
-            href="/login"
+            href="https://app.laxel.in"
+            target="_blank"
             className="flex items-center space-x-1 text-sm font-medium text-gray-700 hover:text-gray-900"
           >
             <LogIn className="h-4 w-4" />

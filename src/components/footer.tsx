@@ -5,7 +5,7 @@ export function Footer() {
   return (
     <footer className="bg-gray-800 text-white">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 py-12 px-6 md:px-10 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 py-12 px-6 md:px-10 gap-10">
           <div>
             <div className="mb-6">
               <h3 className="text-lg font-medium mb-2">
@@ -27,60 +27,6 @@ export function Footer() {
                 CONTACT US
               </Link>
             </div>
-          </div>
-
-          <div className="space-y-4">
-            <h3 className="text-lg font-medium mb-4">Editions</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/regions/india"
-                  className="text-gray-300 hover:text-white flex items-center"
-                >
-                  <span className="mr-2">—</span> India
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/regions/europe"
-                  className="text-gray-300 hover:text-white"
-                >
-                  Europe
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/regions/asia-pacific-english"
-                  className="text-gray-300 hover:text-white"
-                >
-                  Asia Pacific - English
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/regions/asia-pacific-chinese"
-                  className="text-gray-300 hover:text-white"
-                >
-                  Asia Pacific - 中文
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/regions/asia-pacific-japanese"
-                  className="text-gray-300 hover:text-white"
-                >
-                  Asia Pacific - 日本語
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/regions/global"
-                  className="text-gray-300 hover:text-white"
-                >
-                  Global
-                </Link>
-              </li>
-            </ul>
           </div>
 
           <div className="space-y-4">
