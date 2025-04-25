@@ -19,28 +19,28 @@ export function CoreValues() {
         )}
       >
         <h2 className="text-4xl md:text-5xl font-playfair mb-12">
-          Dedicated to excellence in legal advocacy and client service across
-          borders.
+          Dedicated to delivering practical and customised legal solutions.
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           <div>
             <h3 className="text-xl font-medium mb-4">OUR APPROACH</h3>
             <p className="text-gray-700 leading-relaxed">
-              We approach each client matter with a deep understanding of the
-              underlying business objectives. Our attorneys collaborate across
-              practice areas and geographies to deliver practical, innovative
-              solutions tailored to your specific needs.
+              We at Mimansa work with a network of lawyers across the country to
+              leverage a pan-India presence while retaining a centralized
+              monitoring structure. Our professional training and core values
+              enable us to be easily accessible, transparent and deliver
+              promptly without compromising on quality.
             </p>
           </div>
 
           <div>
             <h3 className="text-xl font-medium mb-4">OUR COMMITMENT</h3>
             <p className="text-gray-700 leading-relaxed">
-              For over three decades, we have maintained an unwavering
-              commitment to legal excellence, ethical practice, and responsive
-              service. We measure our success by the success of our clients and
-              the strength of our long-term relationships.
+              Since our founding in 2016, we have maintained an unwavering
+              commitment to partnering in our clients' progress. Our emphasis on
+              quality, detail-oriented work and clarity of communication is core
+              to our belief and we strive to achieve it at all times.
             </p>
           </div>
         </div>

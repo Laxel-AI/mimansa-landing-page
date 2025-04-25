@@ -11,44 +11,43 @@ import { Button } from "@/components/ui/button";
 const practiceAreas = [
   {
     id: 1,
-    title: "Corporate Law",
+    title: "Dispute Resolution",
     description:
-      "Strategic counsel for mergers, acquisitions, corporate governance, and business transactions across industries.",
+      "Strategic representation in complex disputes, arbitration, and alternative dispute resolution with proven track records across judicial forums.",
     image:
-      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
-    link: "/services/corporate",
+      "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80",
+    link: "/services/dispute-resolution",
   },
   {
     id: 2,
-    title: "Litigation",
+    title: "Taxation",
     description:
-      "Skilled representation in complex commercial disputes, arbitration, and regulatory investigations with proven track records.",
+      "Comprehensive tax advisory services combining legal expertise and financial acumen across direct and indirect taxation frameworks.",
     image:
-      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
-    link: "/services/litigation",
+      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80",
+    link: "/services/taxation",
   },
   {
     id: 3,
-    title: "Regulatory Compliance",
+    title: "Insolvency & Restructuring",
     description:
-      "Navigating complex regulatory frameworks across sectors and jurisdictions to minimize risk and ensure operational continuity.",
+      "Strategic solutions for businesses navigating bankruptcy and insolvency challenges under the Indian Insolvency & Bankruptcy Code.",
     image:
-      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-    link: "/services/regulatory",
+      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    link: "/services/insolvency-restructuring",
   },
   {
     id: 4,
-    title: "Intellectual Property",
+    title: "Real Estate",
     description:
-      "Protection and enforcement of valuable IP assets including patents, trademarks, and copyrights across global markets.",
+      "Legal expertise for landowners, developers, construction companies, investors, lenders, corporates, and HNI buyers across real estate transactions.",
     image:
-      "https://images.unsplash.com/photo-1532618500676-2e0cbf7ba8b8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-    link: "/services/intellectual-property",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    link: "/services/real-estate",
   },
 ];
 
 export function PracticeAreas() {
-  //   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -56,18 +55,6 @@ export function PracticeAreas() {
     threshold: 0.1,
     triggerOnce: true,
   });
-
-  //   const handleArrowClick = (direction: "prev" | "next") => {
-  //     if (direction === "prev") {
-  //       setActiveIndex((prev) =>
-  //         prev === 0 ? practiceAreas.length - 1 : prev - 1
-  //       );
-  //     } else {
-  //       setActiveIndex((prev) =>
-  //         prev === practiceAreas.length - 1 ? 0 : prev + 1
-  //       );
-  //     }
-  //   };
 
   // Very subtle parallax effect for cards
   useEffect(() => {

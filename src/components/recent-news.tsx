@@ -10,62 +10,64 @@ import { cn } from "@/lib/utils";
 const newsItems = [
   {
     id: 1,
-    type: "THE MIMANSA PODCAST",
-    title: "How a New Administration's Policy Playbook May Impact Businesses",
+    type: "LEGAL UPDATE",
+    title:
+      "Recent Amendments to Insolvency and Bankruptcy Code: Implications for Creditors",
     description:
-      "A discussion on the economic and regulatory implications of recent policy shifts.",
+      "Analysis of recent regulatory changes and their impact on insolvency proceedings in India.",
     image:
-      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
-    link: "/insights/policy-impact",
+      "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80",
+    link: "/insights/ibc-amendments",
     index: "1 of 5",
   },
   {
     id: 2,
-    type: "MIMANSA RESOURCES",
-    title: "Global Impact Analysis: Navigating Cross-Border Regulation",
+    type: "CASE STUDY",
+    title: "Successful Resolution of Complex Real Estate Dispute in Delhi NCR",
     description:
-      "Key strategies for multinational corporations facing evolving regulatory challenges.",
+      "How our litigation team secured a favorable outcome in a multi-party property dispute.",
     image:
-      "https://images.unsplash.com/photo-1661956602139-ec64991b8b16?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2065&q=80",
-    link: "/insights/global-regulation",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    link: "/insights/real-estate-dispute",
     index: "2 of 5",
   },
   {
     id: 3,
-    type: "CLIENT ALERT",
-    title: "Supreme Court Decision Reshapes Data Privacy Landscape",
+    type: "REGULATORY ALERT",
+    title: "GST Council Updates: New Compliance Requirements for Businesses",
     description:
-      "Analysis of recent ruling and implications for technology companies and data controllers.",
+      "Key takeaways from recent GST Council meeting and compliance deadlines businesses need to know.",
     image:
-      "https://images.unsplash.com/photo-1423666639041-f56000c27a9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80",
-    link: "/insights/privacy-ruling",
+      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80",
+    link: "/insights/gst-updates",
     index: "3 of 5",
   },
   {
     id: 4,
     type: "WEBINAR",
-    title: "Emerging Trends in Corporate Sustainability Reporting",
+    title: "Navigating the New Direct Tax Regime: Strategies for Corporates",
     description:
-      "Expert guidance on compliance with new ESG disclosure requirements.",
+      "Join our tax experts for insights on optimizing tax structures under the revised direct tax framework.",
     image:
-      "https://images.unsplash.com/photo-1541560584753-cefb2f1887cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80",
-    link: "/insights/esg-reporting",
+      "https://images.unsplash.com/photo-1591696205602-2f950c417cb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    link: "/insights/direct-tax-webinar",
     index: "4 of 5",
   },
   {
     id: 5,
-    type: "CASE STUDY",
-    title: "Landmark Merger: Navigating Regulatory Hurdles in Fintech",
+    type: "FIRM NEWS",
+    title:
+      "Mimansa Law Offices Expands Litigation Practice with New Partner Appointments",
     description:
-      "How our team helped secure approval for a complex cross-border acquisition.",
+      "Strategic expansion of our litigation team to enhance capabilities in commercial dispute resolution.",
     image:
-      "https://images.unsplash.com/photo-1550565118-3a14e8d0386f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-    link: "/insights/fintech-merger",
+      "https://images.unsplash.com/photo-1573496130407-57329f01f769?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80",
+    link: "/news/new-partners",
     index: "5 of 5",
   },
 ];
 
-export function RecentNews() {
+const RecentNews = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const maxVisibleItems = 1;
   const slideRef = useRef<HTMLDivElement>(null);
@@ -98,7 +100,9 @@ export function RecentNews() {
         >
           <div>
             <h2 className="text-4xl md:text-5xl font-playfair mb-4">Latest</h2>
-            <p className="text-xl italic font-light">from Mimansa</p>
+            <p className="text-xl italic font-light">
+              from Mimansa Law Offices
+            </p>
           </div>
 
           <div className="hidden md:flex space-x-4">
@@ -145,7 +149,7 @@ export function RecentNews() {
                   </div>
 
                   <div className="lg:col-span-2 p-8 lg:p-12 flex flex-col justify-center bg-white">
-                    <div className="text-red-500 uppercase text-sm font-medium tracking-wider mb-3">
+                    <div className="text-amber-600 uppercase text-sm font-medium tracking-wider mb-3">
                       {item.type}
                     </div>
                     <h3 className="text-2xl lg:text-3xl font-playfair mb-6 leading-tight">
@@ -194,4 +198,6 @@ export function RecentNews() {
       </div>
     </section>
   );
-}
+};
+
+export default RecentNews;

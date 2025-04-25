@@ -53,7 +53,7 @@ export function HeroBanner() {
       <div className="absolute inset-0 z-1">
         <Image
           src="/blind_women.png"
-          alt="Legal architecture"
+          alt="Lady Justice"
           fill
           className="object-cover"
           priority
@@ -69,11 +69,11 @@ export function HeroBanner() {
           className="max-w-3xl text-white transition-all duration-1000 ease-out"
         >
           <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4 sm:mb-6 md:mb-8 leading-tight tracking-tight">
-            Expertise.
+            Expert.
             <br />
-            Innovation.
+            Dedicated.
             <br />
-            Results.
+            Partner.
           </h1>
 
           <div
@@ -84,8 +84,8 @@ export function HeroBanner() {
               ANNOUNCEMENTS
             </h2>
             <p className="text-base sm:text-lg md:text-xl font-playfair">
-              Mimansa Law Represents Supreme Ventures in Their ₹5.7 Billion
-              Acquisition of NextGen Financial Services
+              Mimansa Law Offices established new branch in Raipur - Expanding
+              our presence to better serve clients across India
             </p>
           </div>
         </div>

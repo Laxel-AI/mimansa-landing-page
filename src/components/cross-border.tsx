@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import { cn } from "@/lib/utils";
 
-export function CrossBorderCapabilities() {
+const CrossBorder = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
 
@@ -70,32 +70,34 @@ export function CrossBorderCapabilities() {
             <div className="bg-white p-8 lg:p-16 h-full flex flex-col justify-center">
               <div className="mb-8">
                 <span className="text-amber-600 uppercase text-sm font-medium tracking-wider">
-                  EXPERIENCE
+                  OUR NETWORK
                 </span>
               </div>
 
               <h2 className="text-3xl lg:text-4xl font-playfair mb-8">
-                Cross-Border Capabilities
+                Pan-India Presence
               </h2>
 
               <div ref={textRef} className="prose prose-lg text-gray-600 mb-10">
                 <p className="mb-6">
-                  We collaborate across disciplines and borders to help clients
-                  in more than 70 countries achieve their business objectives.
+                  With offices in Delhi, Noida and Raipur, Mimansa Law Offices
+                  works with a network of lawyers across the country to provide
+                  seamless legal services throughout India.
                 </p>
                 <p>
-                  Our integrated global platform allows us to assemble the right
-                  team for your specific needs, ensuring seamless service
-                  delivery across multiple jurisdictions and practice areas.
+                  Our centralized monitoring structure ensures consistent
+                  quality and approach while our widespread presence allows us
+                  to leverage local knowledge and expertise for the benefit of
+                  our diverse client base.
                 </p>
               </div>
 
               <div className="mt-auto">
                 <Link
-                  href="/cross-border-capabilities"
+                  href="/about-us"
                   className="inline-flex items-center text-amber-600 font-medium hover:text-amber-700 group"
                 >
-                  Learn More About Our Global Reach
+                  Learn More About Our Approach
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
@@ -109,8 +111,8 @@ export function CrossBorderCapabilities() {
             )}
           >
             <Image
-              src="https://images.unsplash.com/photo-1592859600972-1b0834d83747?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-              alt="Global network visualization"
+              src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+              alt="India map with office locations"
               fill
               className="object-cover"
             />
@@ -120,4 +122,6 @@ export function CrossBorderCapabilities() {
       </div>
     </section>
   );
-}
+};
+
+export default CrossBorder;
