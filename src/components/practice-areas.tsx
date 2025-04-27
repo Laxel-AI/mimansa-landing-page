@@ -167,7 +167,7 @@ export function PracticeAreas() {
             variant="outline"
             className="rounded-full px-8 py-6 text-lg border-amber-600 text-amber-600 hover:bg-amber-600 hover:text-white"
           >
-            <Link href="/services-and-industries">View All Practice Areas</Link>
+            <Link href="/services">View All Practice Areas</Link>
           </Button>
         </div>
       </div>
