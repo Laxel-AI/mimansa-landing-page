@@ -2,8 +2,8 @@
 
 import { useRef, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+// import Link from "next/link";
+// import { ArrowRight } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import { cn } from "@/lib/utils";
 
@@ -92,7 +92,7 @@ const CrossBorder = () => {
                 </p>
               </div>
 
-              <div className="mt-auto">
+              {/* <div className="mt-auto">
                 <Link
                   href="/about-us"
                   className="inline-flex items-center text-amber-600 font-medium hover:text-amber-700 group"
@@ -100,7 +100,7 @@ const CrossBorder = () => {
                   Learn More About Our Approach
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
-              </div>
+              </div> */}
             </div>
           </div>
 

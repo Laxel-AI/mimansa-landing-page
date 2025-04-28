@@ -270,22 +270,6 @@ export function Sidebar() {
           <SidebarNavigation />
         </div>
       </div>
-
-      <div
-        className="instructions hidden md:block"
-        style={{
-          position: "fixed",
-          top: "20px",
-          left: `${sidebarWidth + 20}px`,
-          padding: "10px",
-          backgroundColor: "transparent",
-          color: "white",
-          borderRadius: "5px",
-          zIndex: 60, // Even higher than navigation text
-        }}
-      >
-        Scroll down to see the effect
-      </div>
     </div>
   );
 

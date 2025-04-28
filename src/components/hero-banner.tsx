@@ -7,6 +7,7 @@ export function HeroBanner() {
   const textRef = useRef<HTMLDivElement>(null);
   const announcementRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const showAnnouncement = true;
 
   // Subtle parallax effect on scroll
   useEffect(() => {
@@ -59,7 +60,7 @@ export function HeroBanner() {
           priority
           quality={90}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
       </div>
 
       {/* Hero Content */}
@@ -76,18 +77,38 @@ export function HeroBanner() {
             Partner.
           </h1>
 
-          <div
-            ref={announcementRef}
-            className="mt-4 sm:mt-6 md:mt-8 lg:mt-12 px-4 sm:px-5 md:px-6 py-4 sm:py-6 md:py-8 bg-amber-600/90 backdrop-blur-sm max-w-full sm:max-w-xl transition-all duration-1000 ease-out"
-          >
-            <h2 className="text-xl sm:text-2xl font-medium mb-2 sm:mb-4">
-              ANNOUNCEMENTS
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl font-playfair">
-              Mimansa Law Offices established new branch in Raipur - Expanding
-              our presence to better serve clients across India
-            </p>
-          </div>
+          {showAnnouncement && (
+            <div
+              ref={announcementRef}
+              className="mt-8 transition-all duration-500 ease-out max-w-2xl"
+            >
+              <div className="group block">
+                <div className="bg-white/10 backdrop-blur-lg border-l-4 border-amber-600 pl-4 pr-6 py-4 hover:bg-white/15 transition-all duration-300">
+                  <div className="flex justify-between items-start mb-1">
+                    <div className="flex items-center">
+                      <span className="text-xs font-semibold tracking-wider text-amber-400 uppercase mr-2">
+                        Supreme Court
+                      </span>
+                      <span className="text-xs text-white/70">
+                        2025 INSC 571
+                      </span>
+                    </div>
+                  </div>
+
+                  <h3 className="text-white text-base sm:text-lg font-medium leading-tight mb-1.5">
+                    Argument of Civil Dispute is no premise to Quash FIR when
+                    Financial Fraud is manifest
+                  </h3>
+
+                  <p className="text-white/80 text-sm line-clamp-1 sm:line-clamp-2">
+                    In Dinesh Sharma v. Emgee Cables, SC held that financial
+                    frauds need deeper scrutiny and cannot be brushed off as
+                    civil disputes.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
