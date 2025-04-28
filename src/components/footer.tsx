@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Linkedin, Instagram, Facebook, Twitter } from "lucide-react";
+// import { Linkedin, Instagram, Facebook, Twitter } from "lucide-react";
 
 export function Footer() {
   return (
@@ -37,7 +37,7 @@ export function Footer() {
               PEOPLE
             </Link>
             <Link
-              href="/services-and-industries"
+              href="/services"
               className="block text-lg font-medium hover:text-gray-300"
             >
               SERVICES AND INDUSTRIES
@@ -56,7 +56,7 @@ export function Footer() {
             </Link>
           </div>
 
-          <div className="space-y-4">
+          {/* <div className="space-y-4">
             <Link
               href="/news"
               className="block text-lg font-medium hover:text-gray-300"
@@ -103,7 +103,7 @@ export function Footer() {
                 <Twitter className="h-5 w-5" />
               </Link>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-6 px-6 md:px-10 border-t border-gray-700 text-sm text-gray-400">
@@ -134,7 +134,7 @@ export function Footer() {
         </div>
 
         <div className="py-4 px-6 md:px-10 border-t border-gray-700 text-sm text-gray-400">
-          © 2025 MIMANSA LAW LLP
+          © {new Date().getFullYear()} MIMANSA LAW
         </div>
       </div>
     </footer>

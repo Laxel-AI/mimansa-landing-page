@@ -48,7 +48,7 @@ export function HeroBanner() {
   return (
     <div
       ref={containerRef}
-      className="hero-banner relative h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-screen lg:max-h-[800px] overflow-hidden w-full lg:w-screen lg:-ml-64"
+      className="hero-banner relative h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-screen  overflow-hidden w-full lg:w-screen lg:-ml-64"
     >
       {/* Hero Image */}
       <div className="absolute inset-0 z-1">
