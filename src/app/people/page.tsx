@@ -4,8 +4,8 @@ import Image from "next/image";
 
 export default function PeoplePage() {
   const partners = people.filter((person) => person.role === "Partner");
-  const associates = people.filter((person) => person.role === "Associate");
-  const interns = people.filter((person) => person.role === "Intern");
+  // const associates = people.filter((person) => person.role === "Associate");
+  // const interns = people.filter((person) => person.role === "Intern");
 
   const PersonCard = ({ person }: { person: Person }) => (
     <Link href={`/people/${person.slug}`} className="group">
@@ -62,8 +62,8 @@ export default function PeoplePage() {
       </div>
 
       <PeopleSection title="Partners" people={partners} />
-      <PeopleSection title="Associates" people={associates} />
-      <PeopleSection title="Interns" people={interns} />
+      {/* <PeopleSection title="Associates" people={associates} /> */}
+      {/* <PeopleSection title="Interns" people={interns} /> */}
     </div>
   );
 }
