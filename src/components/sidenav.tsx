@@ -67,7 +67,9 @@ const SidebarNavigation = () => {
           <div className="w-8 h-8 rounded-full border flex items-center justify-center">
             <span className="text-xs">©</span>
           </div>
-          <span className="text-xs">2025 Mimansa Consulting</span>
+          <span className="text-xs">
+            {new Date().getFullYear()} Mimansa Law
+          </span>
         </div>
       </div>
     </div>

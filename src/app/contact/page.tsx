@@ -8,7 +8,7 @@ import { MapPin, Mail, Phone, Send } from "lucide-react";
 
 export default function Contact() {
   const [formStatus, setFormStatus] = useState("idle");
-  const formRef = useRef(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const { ref, inView } = useInView({
     threshold: 0.1,
@@ -29,24 +29,11 @@ export default function Contact() {
   const officeLocations = [
     {
       id: 1,
-      city: "Mumbai",
-      address: "23rd Floor, Trade Center, Bandra Kurla Complex",
-      phone: "+91 22 4512 7800",
-      email: "mumbai@mimansalaw.com",
-    },
-    {
-      id: 2,
-      city: "New Delhi",
-      address: "15th Floor, DLF Cyber City, Gurugram",
-      phone: "+91 11 2341 5600",
-      email: "delhi@mimansalaw.com",
-    },
-    {
-      id: 3,
-      city: "Bangalore",
-      address: "10th Floor, Prestige Trade Tower, Palace Road",
-      phone: "+91 80 4789 2300",
-      email: "bangalore@mimansalaw.com",
+      city: "Delhi",
+      address:
+        "C-6/50, Block-C6, Safdarjung Development Area, Hauz Khas, New Delhi, Delhi 110016",
+      phone: "011 2656 2650",
+      email: "mail@mimansalaw.in",
     },
   ];
 
@@ -111,7 +98,7 @@ export default function Contact() {
               </div>
             </div>
 
-            <div>
+            {/* <div>
               <h3 className="text-xl font-medium mb-6">General Inquiries</h3>
               <div className="flex items-center mb-3">
                 <Phone className="h-5 w-5 text-gray-500 mr-3" />
@@ -126,7 +113,7 @@ export default function Contact() {
                   info@mimansalaw.com
                 </a>
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Contact Form */}

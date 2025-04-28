@@ -29,8 +29,8 @@ export function Sidebar() {
   // Track if component is mounted to safely use browser APIs
 
   // Sidebar width
-  const sidebarWidth = 250;
-
+  const sidebarWidth = 260;
+  console.log("viewport", viewportHeightRef.current);
   // Set up direct DOM manipulation for maximum performance
   useEffect(() => {
     // Check for mobile on initial render
@@ -177,7 +177,7 @@ export function Sidebar() {
 
   // Desktop sidebar component with animation
   const DesktopSidebar = () => (
-    <div className="container relative hidden md:block" style={{ zIndex: 5 }}>
+    <div className="container relative hidden md:block " style={{ zIndex: 5 }}>
       {/* Blue box container - lower z-index than hero */}
       <div
         ref={blueBoxRef}
