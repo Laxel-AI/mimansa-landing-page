@@ -57,7 +57,7 @@ const CrossBorder = () => {
         containerRef.current = el;
         inViewRef(el);
       }}
-      className="py-24 px-6 lg:px-0 bg-gray-100 overflow-hidden"
+      className="px-6 lg:px-0 bg-gray-100 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row items-stretch">

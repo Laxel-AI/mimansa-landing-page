@@ -119,18 +119,18 @@ export function Footer() {
           <Link href="/social-media-directory" className="hover:text-white">
             Social Media Directory
           </Link>
-          <Link href="/attorney-advertising" className="hover:text-white">
+          {/* <Link href="/attorney-advertising" className="hover:text-white">
             Attorney Advertising
-          </Link>
+          </Link> */}
           <Link href="/award-methodologies" className="hover:text-white">
             Award Methodologies
           </Link>
           <Link href="/privacy-policy" className="hover:text-white">
             Privacy Policy
           </Link>
-          <Link href="/medical-plan-transparency" className="hover:text-white">
+          {/* <Link href="/medical-plan-transparency" className="hover:text-white">
             Medical Plan Transparency
-          </Link>
+          </Link> */}
         </div>
 
         <div className="py-4 px-6 md:px-10 border-t border-gray-700 text-sm text-gray-400">

@@ -24,7 +24,7 @@ const navigationItems = {
       type: "link",
     },
     {
-      label: "CONTACT",
+      label: "CONTACT US",
       link: "/contact",
       type: "link",
     },

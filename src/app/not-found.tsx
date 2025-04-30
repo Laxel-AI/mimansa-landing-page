@@ -1,24 +1,23 @@
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+// No imports needed unless you add something new
 
-export default function NotFound() {
+export default function UnderConstruction() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-transparent">
-      <div className="max-w-xl w-full px-6 py-12">
-        <h1 className="font-playfair text-6xl mb-4 text-amber-600">404</h1>
-        <h2 className="text-3xl font-playfair mb-6">Page Not Found</h2>
+      <div className="max-w-xl w-full px-6 py-12 text-center">
+        {/* Keep the headings as they are, they work well */}
+        <h1 className="font-playfair text-6xl mb-4 text-amber-600">
+          Coming Soon
+        </h1>
+        <h2 className="text-3xl font-playfair mb-6">
+          Website Under Construction
+        </h2>
+
+        {/* Update the paragraph text */}
         <p className="text-gray-600 mb-10">
-          We couldn&apos;t find the page you were looking for. The page may have
-          been moved, deleted, or perhaps the URL was mistyped.
+          This page is under construction. We are currently **revamping our website** to bring you a better experience. We appreciate your patience and ask you to please check back again shortly!
         </p>
 
-        <Link
-          href="/"
-          className="inline-flex items-center text-amber-600 font-medium hover:text-amber-700 group"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
-          Return to Homepage
-        </Link>
+       
       </div>
     </div>
   );

@@ -55,7 +55,7 @@ export function PracticeAreas() {
   });
 
   return (
-    <section className="py-24 bg-gradient-to-b from-slate-50 to-slate-100 overflow-hidden">
+    <section className="py-20 bg-gradient-to-b from-slate-50 to-slate-100 overflow-hidden">
       <div ref={ref} className="max-w-7xl mx-auto px-6 lg:px-8">
         <div
           className={cn(
