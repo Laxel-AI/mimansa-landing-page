@@ -47,7 +47,7 @@ export default function Contact() {
       city: "Noida",
       address:
         "C-209, Tower C, 2nd Floor Noida One Building Sector-62, Noida-201301",
-      phone: "",
+      phone: "011 26562650",
       email: "mail@mimansalaw.in",
     },
   ];
