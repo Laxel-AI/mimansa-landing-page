@@ -32,7 +32,22 @@ export default function Contact() {
       city: "Delhi",
       address:
         "C-6/50, Block-C6, Safdarjung Development Area, Hauz Khas, New Delhi, Delhi 110016",
-      phone: "011 2656 2650",
+      phone: "011 26562650",
+      email: "mail@mimansalaw.in",
+    },
+    {
+      id: 2,
+      city: "Raipur",
+      address: "29, South Avenue, Choubey Colony,Raipur, CG-492001",
+      phone: "07714088165/4039165",
+      email: "mail@mimansalaw.in",
+    },
+    {
+      id: 3,
+      city: "Noida",
+      address:
+        "C-209, Tower C, 2nd Floor Noida One Building Sector-62, Noida-201301",
+      phone: "",
       email: "mail@mimansalaw.in",
     },
   ];
