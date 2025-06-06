@@ -151,4 +151,37 @@ Krishna is an ardent writer and speaks on topics relating to restructuring and i
     imageUrl: "/lawyers/chaitanyashil-priyadarshi.png",
     slug: "chaitanyashil-priyadarshi",
   },
+  {
+    id: "6",
+    name: "Nirnay Gupta",
+    role: "Partner",
+    title: "Legal Counsel, Capital Markets & Litigation Specialist",
+    email: "nirnay@mimansalaw.in",
+    phone: "+91 72919 90185",
+    education: [
+      "ILS LAW COLLEGE, PUNE [B.S.L LLB]",
+      "LLM in Arbitration & Dispute Resolution from George Washington University (U.S.A)",
+    ],
+    specializationAreas: [
+      "Electricity Laws",
+      "White Collar Crimes",
+      "Telecom & Mining Laws",
+      "Financial & Regulatory Laws",
+      "Corporate Laws",
+      "Commercial Disputes",
+    ],
+    barAdmissions: [
+      "Supreme Court of India",
+      "High Court of Chhattisgarh",
+      "DRT",
+    ],
+    languages: ["English", "Hindi"],
+    bio: `Nirnay is a Partner at Mimansa Law Offices, bringing over 14 years of extensive experience across Corporate, Commercial, and Regulatory law, with a specialized focus on Capital Markets and Litigation. His deep understanding of the banking, securities, and financial markets enhances his ability to navigate complex legal frameworks with precision.
+
+As a practicing advocate before the Hon'ble High Court of Chhattisgarh, Nirnay represents clients in high-stakes matters across the Hon'ble Supreme Court of India, various High Courts, Tribunals, and Commissions. His expertise extends to white-collar crimes, providing strategic advice on complex financial fraud, corporate misconduct, and regulatory violations.
+
+Nirnay is well known for his influential work in the mining and telecom industries, where he handles intricate legal disputes. He regularly appears before various judicial forums and has valuable experience in commercial arbitrations, ensuring robust legal advocacy for his diverse clientele.`,
+    imageUrl: "/lawyers/nirnay-gupta.jpeg",
+    slug: "nirnay-gupta",
+  },
 ];
