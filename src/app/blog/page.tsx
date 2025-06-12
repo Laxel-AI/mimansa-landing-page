@@ -7,10 +7,19 @@ export const metadata = {
     "Legal insights, analysis, and commentary from our expert attorneys on matters that impact your business and industry.",
 };
 
-export default function Blog() {
+interface PageProps {
+  searchParams: Promise<{ page?: string; query?: string; category?: string }>;
+}
+
+export default async function Blog({ searchParams }: PageProps) {
+  const resolvedParams = await searchParams;
+  const currentPage = Number(resolvedParams?.page) || 1;
+  const query = resolvedParams?.query ?? "";
+  const category = resolvedParams?.category ?? "";
+
   return (
     <div className="mt-12">
-      <BlogPage />
+      <BlogPage currentPage={currentPage} query={query} category={category} />
     </div>
   );
 }
