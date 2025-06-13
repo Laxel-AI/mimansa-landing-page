@@ -9,5 +9,8 @@ const BASE_API_URL = getStrapiURL() + "/api";
 const sdk = strapi({
   baseURL: BASE_API_URL,
   auth: process.env.STRAPI_API_TOKEN,
+  headers: {
+    "Cache-Control": "no-cache, no-store, must-revalidate",
+  },
 });
 export default sdk;
