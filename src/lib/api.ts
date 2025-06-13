@@ -1,5 +1,4 @@
 // src/lib/api.ts
-import sdk from "@/utils/sdk";
 import {
   BlogPostsResponse,
   CategoriesResponse,
@@ -8,15 +7,76 @@ import {
 
 export const dynamic = "force-dynamic";
 
-// Get all blog posts (simple version - backwards compatible)
-export async function getBlogPosts(): Promise<BlogPostsResponse> {
+// Helper function to get Strapi URL
+function getStrapiURL() {
+  return process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337";
+}
+
+// Helper function for API calls with revalidation
+async function strapiRequest(
+  endpoint: string,
+  options: {
+    params?: Record<string, any>;
+    revalidate?: number | false;
+  } = {}
+) {
+  const { params = {}, revalidate = 3600 } = options; // Default 1 hour revalidation
+
+  const baseUrl = getStrapiURL();
+  const url = new URL(`${baseUrl}/api/${endpoint}`);
+
+  // Add query parameters
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      if (typeof value === "object") {
+        url.searchParams.append(key, JSON.stringify(value));
+      } else {
+        url.searchParams.append(key, String(value));
+      }
+    }
+  });
+
+  const fetchOptions: RequestInit = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
+      "Cache-Control": "no-cache, no-store, must-revalidate",
+    },
+  };
+
+  // Add revalidation for Next.js
+  if (revalidate !== false) {
+    (fetchOptions as any).next = { revalidate };
+  }
+
   try {
-    const response = await sdk.collection("blog-posts").find({
-      populate: "*",
-      sort: "createdAt:desc",
+    const response = await fetch(url.toString(), fetchOptions);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error(`Error fetching from ${endpoint}:`, error);
+    throw error;
+  }
+}
+
+// Get all blog posts (simple version - backwards compatible)
+export async function getBlogPosts(
+  revalidate: number | false = 3600
+): Promise<BlogPostsResponse> {
+  try {
+    const response = await strapiRequest("blog-posts", {
+      params: {
+        populate: "*",
+        sort: "createdAt:desc",
+      },
+      revalidate,
     });
 
-    // console.log("getBlogPosts response:", response);
     return response as BlogPostsResponse;
   } catch (error) {
     console.error("Error fetching blog posts:", error);
@@ -28,7 +88,8 @@ export async function getBlogPosts(): Promise<BlogPostsResponse> {
 export async function getBlogPostsPaginated(
   page: number = 1,
   queryString: string = "",
-  category: string = ""
+  category: string = "",
+  revalidate: number | false = 3600
 ): Promise<BlogPostsResponse> {
   try {
     const pageSize = 6;
@@ -46,23 +107,23 @@ export async function getBlogPostsPaginated(
       filters.category = { name: { $eq: category.trim() } };
     }
 
-    const queryParams: any = {
+    const params: any = {
       populate: "*",
       sort: "createdAt:desc",
-      pagination: {
-        page: page,
-        pageSize: pageSize,
-      },
+      "pagination[page]": page,
+      "pagination[pageSize]": pageSize,
     };
 
     // Only add filters if they exist
     if (Object.keys(filters).length > 0) {
-      queryParams.filters = filters;
+      params.filters = filters;
     }
 
-    const response = await sdk.collection("blog-posts").find(queryParams);
+    const response = await strapiRequest("blog-posts", {
+      params,
+      revalidate,
+    });
 
-    // console.log("getBlogPostsPaginated response:", response);
     return response as BlogPostsResponse;
   } catch (error) {
     console.error("Error fetching paginated blog posts:", error);
@@ -72,17 +133,18 @@ export async function getBlogPostsPaginated(
 
 // Get a single blog post by slug
 export async function getBlogPost(
-  slug: string
+  slug: string,
+  revalidate: number | false = 3600
 ): Promise<StrapiBlogPost | null> {
   try {
-    const response = await sdk.collection("blog-posts").find({
-      filters: {
-        slug: { $eq: slug },
+    const response = await strapiRequest("blog-posts", {
+      params: {
+        "filters[slug][$eq]": slug,
+        populate: "*",
       },
-      populate: "*",
+      revalidate,
     });
 
-    // console.log("getBlogPost response:", response);
     return (response?.data?.[0] as StrapiBlogPost) || null;
   } catch (error) {
     console.error("Error fetching blog post:", error);
@@ -91,14 +153,18 @@ export async function getBlogPost(
 }
 
 // Get all categories
-export async function getCategories(): Promise<CategoriesResponse> {
+export async function getCategories(
+  revalidate: number | false = 3600
+): Promise<CategoriesResponse> {
   try {
-    const response = await sdk.collection("categories").find({
-      populate: "*",
-      sort: "name:asc",
+    const response = await strapiRequest("categories", {
+      params: {
+        populate: "*",
+        sort: "name:asc",
+      },
+      revalidate,
     });
 
-    // console.log("getCategories response:", response);
     return response as CategoriesResponse;
   } catch (error) {
     console.error("Error fetching categories:", error);
@@ -108,20 +174,19 @@ export async function getCategories(): Promise<CategoriesResponse> {
 
 // Get blog posts by category
 export async function getBlogPostsByCategory(
-  categorySlug: string
+  categorySlug: string,
+  revalidate: number | false = 3600
 ): Promise<BlogPostsResponse> {
   try {
-    const response = await sdk.collection("blog-posts").find({
-      filters: {
-        category: {
-          slug: { $eq: categorySlug },
-        },
+    const response = await strapiRequest("blog-posts", {
+      params: {
+        "filters[category][slug][$eq]": categorySlug,
+        populate: "*",
+        sort: "createdAt:desc",
       },
-      populate: "*",
-      sort: "createdAt:desc",
+      revalidate,
     });
 
-    // console.log("getBlogPostsByCategory response:", response);
     return response as BlogPostsResponse;
   } catch (error) {
     console.error("Error fetching blog posts by category:", error);
@@ -130,14 +195,16 @@ export async function getBlogPostsByCategory(
 }
 
 // Get all blog post slugs for static generation
-export async function getAllBlogSlugs() {
+export async function getAllBlogSlugs(revalidate: number | false = 3600) {
   try {
-    const response = await sdk.collection("blog-posts").find({
-      fields: ["slug"],
+    const response = await strapiRequest("blog-posts", {
+      params: {
+        fields: ["slug"],
+      },
+      revalidate,
     });
 
-    // console.log("getAllBlogSlugs response:", response);
-    return response?.data?.map((post) => ({ slug: post.slug })) || [];
+    return response?.data?.map((post: any) => ({ slug: post.slug })) || [];
   } catch (error) {
     console.error("Error fetching blog slugs:", error);
     return [];
@@ -146,7 +213,8 @@ export async function getAllBlogSlugs() {
 
 // Search blog posts with multiple field search
 export async function searchBlogPosts(
-  query: string
+  query: string,
+  revalidate: number | false = 600 // Shorter cache for search results
 ): Promise<BlogPostsResponse> {
   try {
     if (!query.trim()) {
@@ -158,19 +226,21 @@ export async function searchBlogPosts(
       };
     }
 
-    const response = await sdk.collection("blog-posts").find({
-      filters: {
-        $or: [
-          { title: { $containsi: query } },
-          { excerpt: { $containsi: query } },
-          { content: { $containsi: query } },
-        ],
+    const response = await strapiRequest("blog-posts", {
+      params: {
+        filters: {
+          $or: [
+            { title: { $containsi: query } },
+            { excerpt: { $containsi: query } },
+            { content: { $containsi: query } },
+          ],
+        },
+        populate: "*",
+        sort: "createdAt:desc",
       },
-      populate: "*",
-      sort: "createdAt:desc",
+      revalidate,
     });
 
-    // // console.log("searchBlogPosts response:", response);
     return response as BlogPostsResponse;
   } catch (error) {
     console.error("Error searching blog posts:", error);
@@ -182,27 +252,26 @@ export async function searchBlogPosts(
 export async function getRelatedPosts(
   currentPostId: number,
   categoryName?: string,
-  limit: number = 3
+  limit: number = 3,
+  revalidate: number | false = 3600
 ): Promise<BlogPostsResponse> {
   try {
-    let filters: any = {
-      id: { $ne: currentPostId },
+    const params: any = {
+      "filters[id][$ne]": currentPostId,
+      populate: "*",
+      "pagination[limit]": limit,
+      sort: "createdAt:desc",
     };
 
     if (categoryName) {
-      filters.category = { name: { $eq: categoryName } };
+      params["filters[category][name][$eq]"] = categoryName;
     }
 
-    const response = await sdk.collection("blog-posts").find({
-      filters,
-      populate: "*",
-      pagination: {
-        limit: limit,
-      },
-      sort: "createdAt:desc",
+    const response = await strapiRequest("blog-posts", {
+      params,
+      revalidate,
     });
 
-    // // console.log("getRelatedPosts response:", response);
     return response as BlogPostsResponse;
   } catch (error) {
     console.error("Error fetching related posts:", error);
@@ -243,21 +312,20 @@ export function calculateReadingTime(content: string): number {
 
 // Get featured posts (posts marked as featured)
 export async function getFeaturedPosts(
-  limit: number = 3
+  limit: number = 3,
+  revalidate: number | false = 3600
 ): Promise<BlogPostsResponse> {
   try {
-    const response = await sdk.collection("blog-posts").find({
-      filters: {
-        featured: { $eq: true },
+    const response = await strapiRequest("blog-posts", {
+      params: {
+        "filters[featured][$eq]": true,
+        populate: "*",
+        "pagination[limit]": limit,
+        sort: "createdAt:desc",
       },
-      populate: "*",
-      pagination: {
-        limit: limit,
-      },
-      sort: "createdAt:desc",
+      revalidate,
     });
 
-    // console.log("getFeaturedPosts response:", response);
     return response as BlogPostsResponse;
   } catch (error) {
     console.error("Error fetching featured posts:", error);
@@ -267,18 +335,19 @@ export async function getFeaturedPosts(
 
 // Get posts by author
 export async function getPostsByAuthor(
-  authorId: number
+  authorId: number,
+  revalidate: number | false = 3600
 ): Promise<BlogPostsResponse> {
   try {
-    const response = await sdk.collection("blog-posts").find({
-      filters: {
-        authorId: { id: { $eq: authorId } },
+    const response = await strapiRequest("blog-posts", {
+      params: {
+        "filters[authorId][id][$eq]": authorId,
+        populate: "*",
+        sort: "createdAt:desc",
       },
-      populate: "*",
-      sort: "createdAt:desc",
+      revalidate,
     });
 
-    // console.log("getPostsByAuthor response:", response);
     return response as BlogPostsResponse;
   } catch (error) {
     console.error("Error fetching posts by author:", error);
@@ -288,18 +357,19 @@ export async function getPostsByAuthor(
 
 // Get recent posts
 export async function getRecentPosts(
-  limit: number = 5
+  limit: number = 5,
+  revalidate: number | false = 3600
 ): Promise<BlogPostsResponse> {
   try {
-    const response = await sdk.collection("blog-posts").find({
-      populate: "*",
-      pagination: {
-        limit: limit,
+    const response = await strapiRequest("blog-posts", {
+      params: {
+        populate: "*",
+        "pagination[limit]": limit,
+        sort: "createdAt:desc",
       },
-      sort: "createdAt:desc",
+      revalidate,
     });
 
-    // console.log("getRecentPosts response:", response);
     return response as BlogPostsResponse;
   } catch (error) {
     console.error("Error fetching recent posts:", error);
