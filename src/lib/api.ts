@@ -211,14 +211,17 @@ export async function getRelatedPosts(
 // Helper function to get image URL from Strapi
 export function getStrapiMedia(url?: string): string {
   if (!url) return "";
+  console.log("getStrapiMedia url:", url);
 
   // Return full URL if it's already absolute
   if (url.startsWith("http") || url.startsWith("//")) {
+    console.log("Returning absolute URL:", url);
     return url;
   }
 
   // Return API URL if it's relative
   const baseUrl = process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+  console.log("Returning relative URL with base:", baseUrl, url);
   return `${baseUrl}${url}`;
 }
 
