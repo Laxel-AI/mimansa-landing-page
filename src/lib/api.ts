@@ -5,11 +5,28 @@ import {
   StrapiBlogPost,
 } from "../types/strapi";
 
-export const dynamic = "force-dynamic";
-
 // Helper function to get Strapi URL
 function getStrapiURL() {
   return process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337";
+}
+
+// Helper function to flatten filter objects into proper URL parameters
+function flattenFilters(
+  filters: any,
+  searchParams: URLSearchParams,
+  prefix = "filters"
+) {
+  Object.entries(filters).forEach(([key, value]) => {
+    const paramKey = `${prefix}[${key}]`;
+
+    if (value && typeof value === "object" && !Array.isArray(value)) {
+      // Recursively flatten nested objects
+      flattenFilters(value, searchParams, paramKey);
+    } else {
+      // Add the final value
+      searchParams.append(paramKey, String(value));
+    }
+  });
 }
 
 // Helper function for API calls with revalidation
@@ -25,10 +42,13 @@ async function strapiRequest(
   const baseUrl = getStrapiURL();
   const url = new URL(`${baseUrl}/api/${endpoint}`);
 
-  // Add query parameters
+  // Add query parameters with proper handling for nested objects
   Object.entries(params).forEach(([key, value]) => {
     if (value !== undefined && value !== null) {
-      if (typeof value === "object") {
+      if (key === "filters" && typeof value === "object") {
+        // Handle filters specially - flatten the nested structure
+        flattenFilters(value, url.searchParams);
+      } else if (typeof value === "object") {
         url.searchParams.append(key, JSON.stringify(value));
       } else {
         url.searchParams.append(key, String(value));
@@ -54,6 +74,9 @@ async function strapiRequest(
     const response = await fetch(url.toString(), fetchOptions);
 
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`HTTP ${response.status} Error:`, errorText);
+      console.error(`Request URL: ${url.toString()}`);
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
@@ -80,7 +103,19 @@ export async function getBlogPosts(
     return response as BlogPostsResponse;
   } catch (error) {
     console.error("Error fetching blog posts:", error);
-    throw error;
+
+    // Return empty result instead of throwing
+    return {
+      data: [],
+      meta: {
+        pagination: {
+          page: 1,
+          pageSize: 10,
+          pageCount: 0,
+          total: 0,
+        },
+      },
+    };
   }
 }
 
@@ -94,8 +129,16 @@ export async function getBlogPostsPaginated(
   try {
     const pageSize = 6;
 
-    // Build filters object
-    let filters: any = {};
+    // Build parameters object
+    const params: any = {
+      populate: "*",
+      sort: "createdAt:desc",
+      "pagination[page]": page,
+      "pagination[pageSize]": pageSize,
+    };
+
+    // Build filters object only if needed
+    const filters: any = {};
 
     // Add search filter
     if (queryString.trim()) {
@@ -104,15 +147,12 @@ export async function getBlogPostsPaginated(
 
     // Add category filter
     if (category.trim()) {
-      filters.category = { name: { $eq: category.trim() } };
+      filters.category = {
+        name: {
+          $eq: category.trim(),
+        },
+      };
     }
-
-    const params: any = {
-      populate: "*",
-      sort: "createdAt:desc",
-      "pagination[page]": page,
-      "pagination[pageSize]": pageSize,
-    };
 
     // Only add filters if they exist
     if (Object.keys(filters).length > 0) {
@@ -127,7 +167,19 @@ export async function getBlogPostsPaginated(
     return response as BlogPostsResponse;
   } catch (error) {
     console.error("Error fetching paginated blog posts:", error);
-    throw error;
+
+    // Return empty result instead of throwing to prevent page crash
+    return {
+      data: [],
+      meta: {
+        pagination: {
+          page: 1,
+          pageSize: 6,
+          pageCount: 0,
+          total: 0,
+        },
+      },
+    };
   }
 }
 
@@ -148,7 +200,7 @@ export async function getBlogPost(
     return (response?.data?.[0] as StrapiBlogPost) || null;
   } catch (error) {
     console.error("Error fetching blog post:", error);
-    throw error;
+    return null;
   }
 }
 
@@ -168,7 +220,19 @@ export async function getCategories(
     return response as CategoriesResponse;
   } catch (error) {
     console.error("Error fetching categories:", error);
-    throw error;
+
+    // Return empty result instead of throwing
+    return {
+      data: [],
+      meta: {
+        pagination: {
+          page: 1,
+          pageSize: 10,
+          pageCount: 0,
+          total: 0,
+        },
+      },
+    };
   }
 }
 
@@ -190,7 +254,19 @@ export async function getBlogPostsByCategory(
     return response as BlogPostsResponse;
   } catch (error) {
     console.error("Error fetching blog posts by category:", error);
-    throw error;
+
+    // Return empty result instead of throwing
+    return {
+      data: [],
+      meta: {
+        pagination: {
+          page: 1,
+          pageSize: 10,
+          pageCount: 0,
+          total: 0,
+        },
+      },
+    };
   }
 }
 
@@ -244,7 +320,19 @@ export async function searchBlogPosts(
     return response as BlogPostsResponse;
   } catch (error) {
     console.error("Error searching blog posts:", error);
-    throw error;
+
+    // Return empty result instead of throwing
+    return {
+      data: [],
+      meta: {
+        pagination: {
+          page: 1,
+          pageSize: 10,
+          pageCount: 0,
+          total: 0,
+        },
+      },
+    };
   }
 }
 
@@ -275,7 +363,19 @@ export async function getRelatedPosts(
     return response as BlogPostsResponse;
   } catch (error) {
     console.error("Error fetching related posts:", error);
-    throw error;
+
+    // Return empty result instead of throwing
+    return {
+      data: [],
+      meta: {
+        pagination: {
+          page: 1,
+          pageSize: limit,
+          pageCount: 0,
+          total: 0,
+        },
+      },
+    };
   }
 }
 
@@ -329,7 +429,19 @@ export async function getFeaturedPosts(
     return response as BlogPostsResponse;
   } catch (error) {
     console.error("Error fetching featured posts:", error);
-    throw error;
+
+    // Return empty result instead of throwing
+    return {
+      data: [],
+      meta: {
+        pagination: {
+          page: 1,
+          pageSize: limit,
+          pageCount: 0,
+          total: 0,
+        },
+      },
+    };
   }
 }
 
@@ -351,7 +463,19 @@ export async function getPostsByAuthor(
     return response as BlogPostsResponse;
   } catch (error) {
     console.error("Error fetching posts by author:", error);
-    throw error;
+
+    // Return empty result instead of throwing
+    return {
+      data: [],
+      meta: {
+        pagination: {
+          page: 1,
+          pageSize: 10,
+          pageCount: 0,
+          total: 0,
+        },
+      },
+    };
   }
 }
 
@@ -373,6 +497,18 @@ export async function getRecentPosts(
     return response as BlogPostsResponse;
   } catch (error) {
     console.error("Error fetching recent posts:", error);
-    throw error;
+
+    // Return empty result instead of throwing
+    return {
+      data: [],
+      meta: {
+        pagination: {
+          page: 1,
+          pageSize: limit,
+          pageCount: 0,
+          total: 0,
+        },
+      },
+    };
   }
 }
