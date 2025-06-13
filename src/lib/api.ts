@@ -20,7 +20,7 @@ async function strapiRequest(
     revalidate?: number | false;
   } = {}
 ) {
-  const { params = {}, revalidate = 3600 } = options; // Default 1 hour revalidation
+  const { params = {}, revalidate = 60 } = options; // Default 1 hour revalidation
 
   const baseUrl = getStrapiURL();
   const url = new URL(`${baseUrl}/api/${endpoint}`);
@@ -66,7 +66,7 @@ async function strapiRequest(
 
 // Get all blog posts (simple version - backwards compatible)
 export async function getBlogPosts(
-  revalidate: number | false = 3600
+  revalidate: number | false = 60
 ): Promise<BlogPostsResponse> {
   try {
     const response = await strapiRequest("blog-posts", {
@@ -89,7 +89,7 @@ export async function getBlogPostsPaginated(
   page: number = 1,
   queryString: string = "",
   category: string = "",
-  revalidate: number | false = 3600
+  revalidate: number | false = 60
 ): Promise<BlogPostsResponse> {
   try {
     const pageSize = 6;
@@ -134,7 +134,7 @@ export async function getBlogPostsPaginated(
 // Get a single blog post by slug
 export async function getBlogPost(
   slug: string,
-  revalidate: number | false = 3600
+  revalidate: number | false = 60
 ): Promise<StrapiBlogPost | null> {
   try {
     const response = await strapiRequest("blog-posts", {
@@ -154,7 +154,7 @@ export async function getBlogPost(
 
 // Get all categories
 export async function getCategories(
-  revalidate: number | false = 3600
+  revalidate: number | false = 60
 ): Promise<CategoriesResponse> {
   try {
     const response = await strapiRequest("categories", {
@@ -175,7 +175,7 @@ export async function getCategories(
 // Get blog posts by category
 export async function getBlogPostsByCategory(
   categorySlug: string,
-  revalidate: number | false = 3600
+  revalidate: number | false = 60
 ): Promise<BlogPostsResponse> {
   try {
     const response = await strapiRequest("blog-posts", {
@@ -195,7 +195,7 @@ export async function getBlogPostsByCategory(
 }
 
 // Get all blog post slugs for static generation
-export async function getAllBlogSlugs(revalidate: number | false = 3600) {
+export async function getAllBlogSlugs(revalidate: number | false = 60) {
   try {
     const response = await strapiRequest("blog-posts", {
       params: {
@@ -214,7 +214,7 @@ export async function getAllBlogSlugs(revalidate: number | false = 3600) {
 // Search blog posts with multiple field search
 export async function searchBlogPosts(
   query: string,
-  revalidate: number | false = 600 // Shorter cache for search results
+  revalidate: number | false = 60 // Shorter cache for search results
 ): Promise<BlogPostsResponse> {
   try {
     if (!query.trim()) {
@@ -253,7 +253,7 @@ export async function getRelatedPosts(
   currentPostId: number,
   categoryName?: string,
   limit: number = 3,
-  revalidate: number | false = 3600
+  revalidate: number | false = 60
 ): Promise<BlogPostsResponse> {
   try {
     const params: any = {
@@ -313,7 +313,7 @@ export function calculateReadingTime(content: string): number {
 // Get featured posts (posts marked as featured)
 export async function getFeaturedPosts(
   limit: number = 3,
-  revalidate: number | false = 3600
+  revalidate: number | false = 60
 ): Promise<BlogPostsResponse> {
   try {
     const response = await strapiRequest("blog-posts", {
@@ -336,7 +336,7 @@ export async function getFeaturedPosts(
 // Get posts by author
 export async function getPostsByAuthor(
   authorId: number,
-  revalidate: number | false = 3600
+  revalidate: number | false = 60
 ): Promise<BlogPostsResponse> {
   try {
     const response = await strapiRequest("blog-posts", {
@@ -358,7 +358,7 @@ export async function getPostsByAuthor(
 // Get recent posts
 export async function getRecentPosts(
   limit: number = 5,
-  revalidate: number | false = 3600
+  revalidate: number | false = 60
 ): Promise<BlogPostsResponse> {
   try {
     const response = await strapiRequest("blog-posts", {

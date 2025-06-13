@@ -2,8 +2,13 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { formatDate, calculateReadingTime, getStrapiMedia } from "@/lib/api";
-import { getBlogPost, getRelatedPosts } from "@/lib/api";
+import {
+  formatDate,
+  calculateReadingTime,
+  getStrapiMedia,
+  getBlogPost,
+  getRelatedPosts,
+} from "@/lib/api";
 import { StrapiImage } from "@/components/custom/strapi-image";
 import { BlockRenderer } from "@/components/block-renderer";
 import {
