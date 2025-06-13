@@ -6,6 +6,8 @@ import {
   StrapiBlogPost,
 } from "../types/strapi";
 
+export const dynamic = "force-dynamic";
+
 // Get all blog posts (simple version - backwards compatible)
 export async function getBlogPosts(): Promise<BlogPostsResponse> {
   try {
