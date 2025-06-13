@@ -9,6 +9,8 @@ import { getBlogPostsPaginated } from "@/lib/api";
 import { StrapiBlogPost } from "@/types/strapi";
 import { ArrowRight, Calendar, User, Clock } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 interface BlogPageProps {
   currentPage?: number;
   query?: string;
